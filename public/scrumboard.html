@@ -1,0 +1,188 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="scrumboard">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+    <script src="scrumboard.js"></script>
+    <script src="resource/js/jquery-2.1.1.js"></script>
+    <script src="resource/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="resource/css/bootstrap.css" />
+    <link rel="stylesheet" href="resource/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="resource/css/style.css" />
+
+
+</head>
+<body ng-controller="mainScrumController">
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Title</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/add">Add</a></li>
+                        <li class="active"><a href="/scrumboard">Scrum Board</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <!--Default buttons with dropdown menu-->
+    <label for="selectedscrum">Select which Scrum to display</label>
+    <select id="selectedscrum" class="form-control" ng-model="selectedScrumId" ng-change="getSelectedDoc()">
+            <option ng-repeat="scrumitem in scrumitems" value="{{scrumitem._id}}">
+                {{ scrumitem.scrumName }} Period: {{ scrumitem.startDate | date:['yyyy-MM-dd']}} - {{ scrumitem.endDate | date:['yyyy-MM-dd']}}
+            </option>
+    </select>
+
+    <hr>
+    <!-- Main -->
+    <div class="container-fluid">
+        <h1 id="headerOne">{{ selectedScrum.scrumName }}</h1>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                <span class="sr-only">60% Complete</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- panel1 -->
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                #Tasks
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="scrumitem-default" ng-repeat="item in selectedScrum.item" style="margin-top: 5px;">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            <h4>{{item.itemName}}</h4>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <a href="#"  ng-click="addNewScrumItem()">
+                                <span class="glyphicon glyphicon-plus" role="button"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- define rows -->
+                    <div class="col-lg-6 col-md-3 col-sm-4">
+                        <div class="thumbnail note">
+                            <div class="caption">
+                                <h3>Test2</h3>
+                            </div>
+                            <div class="row inner-row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 task-time">
+                                    10
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- panel2 -->
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                #Ongoing
+            </div>
+
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="scrumitem-default" ng-repeat="item in selectedScrum.item" style="margin-top: 5px;">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            <h4>{{item.itemName}}</h4>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <a href="#"  ng-click="addNewScrumItem()">
+                                <span class="glyphicon glyphicon-plus" role="button"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-sm-4">
+                        <div class="thumbnail note">
+                            <div class="caption">
+                                <h3>Test2</h3>
+                            </div>
+                            <div class="row inner-row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 task-time">
+                                    10
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-3 col-sm-4">
+                        <div class="thumbnail note">
+                            <div class="caption">
+                                <h3>Test2</h3>
+                            </div>
+                            <div class="row inner-row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 task-time">
+                                    10
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- panel3 -->
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                #Completed
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="scrumitem-default" ng-repeat="item in selectedScrum.item" style="margin-top: 5px;">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            <h4>{{item.itemName}}</h4>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <a href="#"  ng-click="addNewScrumItem()">
+                                <span class="glyphicon glyphicon-plus" role="button"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="addItem">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+    <script src="additem.js"></script>
+    <script src="resource/js/jquery-2.1.1.js"></script>
+    <script src="resource/js/bootstrap.js"></script>
+    <script src="resource/js/angular-dragdrop.js"></script>
+    <script src="resource/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="resource/css/bootstrap.css" />
+    <link rel="stylesheet" href="resource/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="resource/css/style.css" />
+    <link rel="stylesheet" href="resource/css/datepicker.css" />
+    <link rel="stylesheet" href="resource/css/jquery-ui.css.css" />
+    <!--<script src="resource/js/bootstrap-datepicker.js"></script>-->
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+<body ng-controller="mainAddController">
+<!-- Navigation Bar -->
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Title</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/add">Add</a></li>
+                    <li><a href="/scrumboard">Scrum Board</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>
+<div class="col-lg-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Add new Scrum</div>
+        <div class="panel-body">
+            <form role="form">
+
+                <div class="form-group">
+                    <label for="scrumname">Scrum Name</label>
+                    <input type="text" class="form-control" id="scrumname" placeholder="Enter Scrum Name" ng-model="formData.scrumName">
+                </div>
+
+                <div class="form-group">
+                    <label for="startdate">Start Date</label>
+                    <input id="startdate" type="text" class="form-control" datepicker="" placeholder="Enter Start Date" ng-model="formData.startDate" />
+                </div>
+
+                <div class="form-group">
+                    <label for="enddate">End Date</label>
+                    <input id="enddate" type="text" class="form-control datepicker" datepicker="" placeholder="Enter End Date" ng-model="formData.endDate" />
+                    <!--<input type="text" id="enddate" class="form-control datepicker" placeholder="Enter End Date"-->
+                           <!--name="date" ng-model="formData.endDate">-->
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg" ng-click="createScrum()">Save</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Edit existing Scrum</div>
+        <div class="panel-body">
+            <form role="form">
+
+                <!--Default buttons with dropdown menu-->
+                <div class="form-group">
+                    <label for="selectedscrum">Select which Scrum to display</label>
+                    <select id="selectedscrum" class="form-control" ng-model="selectedScrumId" ng-change="getSelectedDoc()">
+                        <option ng-repeat="scrumitem in scrumitems" value="{{scrumitem._id}}">
+                            {{ scrumitem.scrumName }} Period: {{ scrumitem.startDate | date:['yyyy-MM-dd']}} - {{ scrumitem.endDate | date:['yyyy-MM-dd']}}
+                        </option>
+                    </select>
+                </div>
+                <hr>
+                {{selectedScrum}}
+                <div class="form-group">
+                    <div ng-repeat="item in selectedScrum.item">
+                        <div class="row">
+                            <div class="col-lg-11 col-md-11 col-sm-11">
+                                <input type="text" class="form-control" id="selectedscrumItem" ng-model="item.itemName" ng-change="updateScrumItem(item)">
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1">
+                                <a href="#"  ng-click="removeScrumItem(item._id)">
+                                <span class="glyphicon glyphicon-remove" role="button"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            <input type="text" class="form-control" id="addcrumItem" placeholder="Add new item" ng-model="itemData.name">
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <a href="#"  ng-click="addNewScrumItem()">
+                                <span class="glyphicon glyphicon-plus" role="button"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

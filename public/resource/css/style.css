@@ -1,0 +1,40 @@
+body {
+    padding-top: 70px;
+}
+
+.scrumitem-default {
+    border-bottom: 1px solid #428bca;
+    margin-top: 10px;
+    min-height: 240px;
+}
+
+.panel {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.note {
+    background-color: #FFFB8B !important;
+    min-height: 100px;
+}
+.caption h3 {
+    margin-top: 0px;
+}
+
+.task-time {
+    font-weight: bold;
+    text-align: right;
+}
+
+.inner-row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.white-img {
+    color: #ffffff !important;
+}
+
+.white-img:hover {
+    color: #000000 !important;
+}
